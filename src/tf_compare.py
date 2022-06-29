@@ -27,7 +27,7 @@ iou_debug_thres = 0.5
 input_lable_path = '../data/HD_label_0_1999'
 # input_lable_path = "/ssd1/fengzhen_ssd/data_set/HD_2M_15000_data_set"
 
-input_infer_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/test_0620_py_fz/data/2022-06-28benckmark测试/qnx_output/uint8新模型-cpu"
+input_infer_path = "../data/2022-06-28benckmark测试/qnx_output/uint8新模型-cpu"
 
 # 过滤条件-bbox像素小于该值过滤
 traffic_light_detect_filter_bbox = 4

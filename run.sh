@@ -1,2 +1,2 @@
 cd src
-/bin/python3 tf_compare.py
+python tf_compare.py

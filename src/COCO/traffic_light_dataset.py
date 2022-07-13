@@ -29,10 +29,10 @@ from terminaltables import AsciiTable
 
 from mmdet.core import eval_recalls
 from mmdet.datasets.api_wrappers import COCO, COCOeval
-from .CustomEval import CustomEval
 from mmdet.datasets.builder import DATASETS
 from mmdet.datasets.coco import CocoDataset
-from .bbox_filter import *
+from CustomEval import CustomEval
+from bbox_filter import *
 
 image_suffixes = ('jpg', 'jpeg', 'png', 'bmp')
 category_name_to_id = {'TL': 1, 'TL_sub': 2}
@@ -71,6 +71,8 @@ class TrafficLightDetDataset(CocoDataset):
         if mode == "dump":
             self.dump_result_to_json = True
 
+        # bbox_filters = bbox过滤回调函数
+        # haomo_annotation_parser = 标注文件(json)回调函数，过滤图片信息和bbox信息
         bbox_filters, haomo_annotation_parser = self._prepare_for_json()
         # 待判断是不是dist_train
         self.rank, self.world_size = get_dist_info()
@@ -123,7 +125,7 @@ class TrafficLightDetDataset(CocoDataset):
                 haomo_annotation_parser = self.parse_negative_sample
         elif self.dataset_mode in ["QA", "val"]:
             bbox_filters.extend([
-                bbox_filter_size_4,  # 过滤任意变长小于10的框
+                bbox_filter_size_4,  # 过滤任意变长小于4的框
                 # bbox_filter_toward_orientation,  # 过滤没有朝向字段的框与非正面侧面的框
                 bbox_filter_truncation,
             ])
@@ -780,8 +782,10 @@ class TrafficLightDetDataset(CocoDataset):
         train_annotation_format = list()
         for i, index in enumerate(index_list):
             annotation_path = card_id_annotation_path_list[index]
+            # print("annotation_path:%s" % (annotation_path))
             image_path = os.path.join(card_id_image_root, os.path.basename(
-                annotation_path).split('.')[0] + '.jpg')
+                annotation_path).split('.')[0][:-2] + '-2' + '.jpg')
+            # print("image_path:\t%s" % (image_path))
             assert image_path in card_id_image_path_list
 
             if json_name == 'debug.json' and random.random() <= 0.98:

@@ -31,7 +31,7 @@ from mmdet.core import eval_recalls
 from mmdet.datasets.api_wrappers import COCO, COCOeval
 from mmdet.datasets.builder import DATASETS
 from mmdet.datasets.coco import CocoDataset
-from CustomEval import CustomEval
+from CustomEval import *
 from bbox_filter import *
 
 image_suffixes = ('jpg', 'jpeg', 'png', 'bmp')
@@ -783,6 +783,7 @@ class TrafficLightDetDataset(CocoDataset):
         for i, index in enumerate(index_list):
             annotation_path = card_id_annotation_path_list[index]
             # print("annotation_path:%s" % (annotation_path))
+            # 修改此处对应获取图片名称
             image_path = os.path.join(card_id_image_root, os.path.basename(
                 annotation_path).split('.')[0][:-2] + '-2' + '.jpg')
             # print("image_path:\t%s" % (image_path))

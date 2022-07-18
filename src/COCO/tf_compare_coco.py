@@ -5,6 +5,7 @@ import numpy as np
 import skimage.io as io
 import pylab
 from traffic_light_dataset import *
+from tf_compare_results import *
 
 pylab.rcParams['figure.figsize'] = (10.0, 8.0)
 
@@ -54,20 +55,30 @@ if __name__ == "__main__":
     # 用于保存检测错误的样本
     view_eval_result = False
     check_data_infos = False
+
     # work_dir = '../../data/'
     # data_root = '../../data/'
     # dataset_dir = '../../data/QA/'
     # card_id = "HD_2M_0_1999"
     # json_name = hd + "_" + "QA" + ".json" = 'hd_QA.json'
+    # 将标注文件所有内容写入到这个地址的json中
     # ann_file = os.path.join(self.dataset_dir, self.json_name)
     # card_id_coco_format_root = '../../data/QA/' + 'HD_2M_0_1999/'
-    # 将标注文件所有内容写入到这个地址的json中
+
+    print("First step")
+    print("----------------------------------------------")
     dataset = TrafficLightDetDataset(mode, pipeline, work_dir, card_group, project, neg_sample_ratio, crop_size, view_eval_result, check_data_infos)
-    #loading annotations into memory...
-    #Done(t=8.01s)
-    #creating index...
-    #index created!
+    print("----------------------------------------------")
 
     # 2
     # running evaluation
-    # print(dataset.evaluate())
+    input_lable_path = '/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/HD_2M_0_1999/labels'
+
+    input_infer_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/2022-06-29benckmark测试_0_1999/qnx_output/uint8新模型-cpu"
+
+    print("\nSecond step")
+    print("----------------------------------------------")
+    # print(dataset.evaluate(infer_results(input_lable_path, input_infer_path)))
+    print("----------------------------------------------")
+    infer_results(input_lable_path, input_infer_path)
+    # print(infer_results(input_lable_path, input_infer_path))

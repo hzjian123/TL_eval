@@ -25,10 +25,10 @@ pixel_debug_thres = 4
 # 使用iou方式该变量起作用
 iou_debug_thres = 0.5
 
-input_lable_path = '../data/HD_label_0_999'
+input_lable_path = '/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/HD_2M_0_1999/labels'
 # input_lable_path = "/ssd1/fengzhen_ssd/data_set/HD_2M_15000_data_set"
 
-input_infer_path = "../data/2022-07-02障碍物+红绿灯+点云检测集成测试/traffic_light_qnx_output"
+input_infer_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/2022-06-29benckmark测试_0_1999/qnx_output/uint8新模型-cpu"
 
 # 过滤条件-bbox像素小于该值过滤
 traffic_light_detect_filter_bbox = 4

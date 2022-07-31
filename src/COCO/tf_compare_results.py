@@ -25,11 +25,14 @@ calculate_method = "iou"
 
 # 当标注文件被完全过滤掉是否也过滤掉检测结果对应的文件内容
 # False=不过滤过检内容，True=过滤过检内容
-filter_infer_txt = True
+filter_infer_txt = False
 
 # 是否根据过滤条件过滤检测结果
 # False=不过滤检测结果，True=过滤检测结果
-filter_infer_bboxs = True
+filter_infer_bboxs = False
+
+# 一般不使用仅用来测试coco流程能不能走通
+use_the_true_value = True
 
 class BBox:
     def __init__(self, x, y, w, h):
@@ -113,6 +116,8 @@ def read_json_filter_label_infer_bboxs(label_filename, infer_filename):
     truncation_bboxs = []
     for obj in objs:
         label_bbox_temp = obj["bbox"]
+        if use_the_true_value == True:
+            label_bbox_temp.append(1)
         if obj["class_name"] != "traffic_light":
             class_name_bboxs.append(label_bbox_temp)
             continue
@@ -141,9 +146,8 @@ def read_json_filter_label_infer_bboxs(label_filename, infer_filename):
 
     # 过滤后还有要对比的bbox
     if len(label_bboxs_temp) != 0:
-        # array_temp = np.array(tuple(label_bboxs_temp))
-        # label_bboxs.append(array_temp)
-        label_bboxs.append(label_bboxs_temp)
+        array_temp = np.array(label_bboxs_temp)
+        label_bboxs.append(array_temp)
 
     # 如果当前图片所有信息都是被过滤掉的(label_bboxs=0)，则对应的检测结果全部过滤掉
     if filter_infer_txt == True and len(label_bboxs) == 0:
@@ -246,9 +250,8 @@ def read_json_filter_label_infer_bboxs(label_filename, infer_filename):
             infer_bboxs_temp.append(infer_bbox_temp)
 
         # 只要有标注信息，不管有没有检测出东西来都要添加并返回
-        # array_temp = np.array(tuple(infer_bboxs_temp))
-        # infer_bboxs.append(array_temp)
-        infer_bboxs.append(infer_bboxs_temp)
+        array_temp = np.array(infer_bboxs_temp)
+        infer_bboxs.append(array_temp)
 
     return label_bboxs, infer_bboxs
 
@@ -283,11 +286,16 @@ def infer_results(label_path, infer_path):
         if len(label_bboxs) != 0:
             label_json_count += 1
             label_bboxs_count += len(label_bboxs[0])
+            if use_the_true_value == True:
+                infer_bboxs_results.append(label_bboxs)
 
         if len(infer_bboxs) != 0:
             infer_txt_count += 1
             infer_bboxs_count += len(infer_bboxs[0])
-            infer_bboxs_results.append(infer_bboxs)
+            # 开启此判断过滤掉那些什么都没检测出来的
+            # if len(infer_bboxs[0]) != 0:
+            if use_the_true_value == False:
+                infer_bboxs_results.append(infer_bboxs)
 
         if calculate_method == "iou":
             match_bboxs_count += iou_bboxs(label_bboxs,

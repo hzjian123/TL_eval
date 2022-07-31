@@ -34,8 +34,8 @@ if __name__ == "__main__":
 
     # 根据实际情况进行配置
     V21_2022_Q1_hd_QA_fz = [
-        '../../data/',
-        ['HD_2M_0_1999']
+        '/ssd1/fengzhen_ssd/data_set/',
+        ['Featured_HD_2M_1000_data_set']
     ]
 
     # 测试类型，根据代码猜测使用此值
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     # 管道
     pipeline = test_pipeline
     # 工作路径
-    work_dir = '../../data/'
+    work_dir = '../../data/COCO_output'
     # 测试的图像和标签，以卡片形式存在
     card_group = [V21_2022_Q1_hd_QA_fz]
     # 项目名称
@@ -72,13 +72,15 @@ if __name__ == "__main__":
 
     # 2
     # running evaluation
-    input_lable_path = '/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/HD_2M_0_1999/labels'
+    input_lable_path = '/home/fengzhen/fengzhen_ssd/data_set/Featured_HD_2M_1000_data_set/labels'
 
-    input_infer_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/2022-06-29benckmark测试_0_1999/qnx_output/uint8新模型-cpu"
+    input_infer_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/2022-07-27更换1000帧精选新数据集_冯震输出结果"
 
     print("\nSecond step")
     print("----------------------------------------------")
-    # print(dataset.evaluate(infer_results(input_lable_path, input_infer_path)))
+    print(dataset.evaluate(infer_results(input_lable_path, input_infer_path)))
     print("----------------------------------------------")
-    infer_results(input_lable_path, input_infer_path)
+    # 测试准召率，不走coco后续流程
+    # infer_results(input_lable_path, input_infer_path)
+    # 打印检测结果转换后的内容
     # print(infer_results(input_lable_path, input_infer_path))

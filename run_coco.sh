@@ -1,2 +1,2 @@
-cd src/COCO
-python tf_compare_coco.py
+cd src/code_for_evaluation
+python get_ap_ar.py

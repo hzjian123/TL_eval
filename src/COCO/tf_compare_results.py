@@ -32,7 +32,10 @@ filter_infer_txt = False
 filter_infer_bboxs = False
 
 # 一般不使用仅用来测试coco流程能不能走通
-use_the_true_value = True
+use_the_true_value = False
+
+# 根据后缀判断是冯震还是胡佳纯输出的结果，内容格式不同后需要统一
+infer_suffix = 'json'
 
 class BBox:
     def __init__(self, x, y, w, h):
@@ -157,36 +160,118 @@ def read_json_filter_label_infer_bboxs(label_filename, infer_filename):
 
     infer_bboxs = []
     infer_bboxs_temp = list()
-    with open(infer_filename, 'r') as fp:
-        # print("infer_filename:%s" % infer_filename)
-        lines = fp.readlines()
-        # print("lines:%d" % len(lines))
-        trafficlight_count = 0
-        trafficliht_step = 8
-        trafficlight_useless = 3
-        for line in lines:
-            if "trafficlight total:" in line:
-                trafficlight_count = int(line[19:-1])
-                # print("trafficlight_count:%s" % trafficlight_count)
+    if infer_suffix == "txt":
+        with open(infer_filename, 'r') as fp:
+            # print("infer_filename:%s" % infer_filename)
+            lines = fp.readlines()
+            # print("lines:%d" % len(lines))
+            trafficlight_count = 0
+            trafficliht_step = 8
+            trafficlight_useless = 3
+            for line in lines:
+                if "trafficlight total:" in line:
+                    trafficlight_count = int(line[19:-1])
+                    # print("trafficlight_count:%s" % trafficlight_count)
 
-        for i in range(trafficlight_count):
-            step_tmp = i * trafficliht_step + trafficlight_useless
-            trafficlight_number = int(lines[step_tmp][20:-1])
-            # print("trafficlight_number:%s" % trafficlight_number)
+            for i in range(trafficlight_count):
+                step_tmp = i * trafficliht_step + trafficlight_useless
+                trafficlight_number = int(lines[step_tmp][20:-1])
+                # print("trafficlight_number:%s" % trafficlight_number)
 
-            if trafficlight_number != i:
-                print(f"trafficlight_number : {trafficlight_number} is not exist!")
-                exit(0)
+                if trafficlight_number != i:
+                    print(f"trafficlight_number : {trafficlight_number} is not exist!")
+                    exit(0)
 
-            score = float(lines[step_tmp + 1][6:-1])
+                score = float(lines[step_tmp + 1][6:-1])
+                # print("score:%s" % score)
+                x = int(lines[step_tmp + 2][2:-1])
+                # print("x:%s" % x)
+                y = int(lines[step_tmp + 3][2:-1])
+                # print("y:%s" % y)
+                width = int(lines[step_tmp + 4][6:-1])
+                # print("width:%s" % width)
+                height = int(lines[step_tmp + 5][7:-1])
+                # print("height:%s\n" % height)
+                infer_bbox_temp = [x, y, width, height, score]
+
+                if filter_infer_bboxs == True:
+                    class_name_bboxs_flag = False
+                    for bbox in class_name_bboxs:
+                        if iou_bbox(bbox, infer_bbox_temp, iou_debug_thres) == True:
+                            class_name_bboxs_flag = True
+                            break
+                    if class_name_bboxs_flag == True:
+                        continue
+
+                    pose_orientation_bboxs_flag = False
+                    for bbox in pose_orientation_bboxs:
+                        if iou_bbox(bbox, infer_bbox_temp, iou_debug_thres) == True:
+                            pose_orientation_bboxs_flag = True
+                            break
+                    if pose_orientation_bboxs_flag == True:
+                        continue
+
+                    toward_orientation_bboxs_flag = False
+                    for bbox in toward_orientation_bboxs:
+                        if iou_bbox(bbox, infer_bbox_temp, iou_debug_thres) == True:
+                            toward_orientation_bboxs_flag = True
+                            break
+                    if toward_orientation_bboxs_flag == True:
+                        continue
+
+                    characteristic_bboxs_flag = False
+                    for bbox in characteristic_bboxs:
+                        if iou_bbox(bbox, infer_bbox_temp, iou_debug_thres) == True:
+                            characteristic_bboxs_flag = True
+                            break
+                    if characteristic_bboxs_flag == True:
+                        continue
+
+                    detect_filter_bboxs_flag = False
+                    for bbox in detect_filter_bboxs:
+                        if iou_bbox(bbox, infer_bbox_temp, iou_debug_thres) == True:
+                            detect_filter_bboxs_flag = True
+                            break
+                    if detect_filter_bboxs_flag == True:
+                        continue
+
+                    truncation_bboxs_flag = False
+                    for bbox in truncation_bboxs:
+                        if iou_bbox(bbox, infer_bbox_temp, iou_debug_thres) == True:
+                            truncation_bboxs_flag = True
+                            break
+                    if truncation_bboxs_flag == True:
+                        continue
+
+                    truncation_bboxs_flag = False
+                    for bbox in truncation_bboxs:
+                        if iou_bbox(bbox, infer_bbox_temp, iou_debug_thres) == True:
+                            truncation_bboxs_flag = True
+                            break
+                    if truncation_bboxs_flag == True:
+                        continue
+
+                infer_bboxs_temp.append(infer_bbox_temp)
+
+            # 只要有标注信息，不管有没有检测出东西来都要添加并返回
+            array_temp = np.array(infer_bboxs_temp)
+            infer_bboxs.append(array_temp)
+    else:
+        f = open(infer_filename, encoding='utf-8')
+        file = json.load(f)
+        f.close()
+        objs = file
+        for obj in objs:
+            bbox = obj["bbox"]
+            score = obj["score"]
             # print("score:%s" % score)
-            x = int(lines[step_tmp + 2][2:-1])
+            x = int(bbox[0])
             # print("x:%s" % x)
-            y = int(lines[step_tmp + 3][2:-1])
+            y = int(bbox[1])
             # print("y:%s" % y)
-            width = int(lines[step_tmp + 4][6:-1])
+            width = int(bbox[2])
             # print("width:%s" % width)
-            height = int(lines[step_tmp + 5][7:-1])
+            height = int(bbox[3])
             # print("height:%s\n" % height)
             infer_bbox_temp = [x, y, width, height, score]
 
@@ -260,7 +345,6 @@ def infer_results(label_path, infer_path):
     print("label_path : %s" % label_path)
     print("infer_path : %s" % infer_path)
     label_suffix = 'json'
-    infer_suffix = 'txt'
     label_files = get_files(label_path, label_suffix)
     infer_files = get_files(infer_path, infer_suffix)
     label_path = str(Path(label_path).resolve())
@@ -273,9 +357,17 @@ def infer_results(label_path, infer_path):
     for infer_file in infer_files:
         file_basename = os.path.basename(infer_file)
         file_prefix = os.path.splitext(file_basename)[0]
-        index = file_prefix.rfind("{a}_".format(a=debug_os))
-        label_pre = file_prefix[0: index]
-        label_suf = file_prefix[index + 4:]
+        index = ""
+        label_pre = ""
+        label_suf = ""
+        if infer_suffix == "txt":
+            index = file_prefix.rfind("{a}_".format(a=debug_os))
+            label_pre = file_prefix[0: index]
+            label_suf = file_prefix[index + 4:]
+        else:
+            index = file_prefix.rfind("-2")
+            label_pre = file_prefix[0: index]
+            label_suf = "-1"
         label_file = str(label_path) + '/' + label_pre + \
             label_suf + '.' + label_suffix
         if not label_file in label_files:

@@ -34,7 +34,7 @@ filter_infer_bboxs = False
 # 一般不使用仅用来测试coco流程能不能走通
 use_the_true_value = False
 
-# 根据后缀判断是冯震还是胡佳纯输出的结果，内容格式不同后需要统一
+# 此配置为了兼容txt格式
 infer_suffix = 'json'
 
 class BBox:

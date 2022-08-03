@@ -36,7 +36,7 @@ test_pipeline = [
 
 # 根据实际情况进行配置
 V21_2022_Q1_hd_QA_fz = [
-	'/ssd1/fengzhen_ssd/data_set/',
+	'/home/fengzhen/work/data_set/',
 	['Featured_HD_2M_1000_data_set']
 ]
 
@@ -45,7 +45,7 @@ mode = "QA"
 # 管道
 pipeline = test_pipeline
 # 工作路径
-work_dir = '../../data/COCO_output'
+work_dir = '../../data/COCO_tmp'
 # 测试的图像和标签，以卡片形式存在
 card_group = [V21_2022_Q1_hd_QA_fz]
 # 项目名称
@@ -76,7 +76,9 @@ print("----------------------------------------------")
 CLASSES = ('traffic_light')
 
 gt_path = work_dir + "/QA/hd_QA.json"
-det_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/精选1000帧新数据集_胡佳纯输出/onnx_detection_result/" + "/"
+det_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/dec20220625/bin_output" + "/"
+# det_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/dec20220625/trt_output" + "/"
+# det_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/dec20220625/onnx_output_hjc" + "/"
 
 with open(gt_path) as fr:
 	result = json.load(fr)

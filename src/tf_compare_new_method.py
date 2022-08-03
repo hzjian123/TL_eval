@@ -3,10 +3,11 @@ from tf_compare_results import *
 
 # 2
 # running evaluation
-input_lable_path = '/home/fengzhen/fengzhen_ssd/data_set/Featured_HD_2M_1000_data_set/labels'
+input_lable_path = '/home/fengzhen/work/data_set/Featured_HD_2M_1000_data_set/labels'
 
-# input_infer_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/2022-07-27更换1000帧精选新数据集_冯震输出结果"
-input_infer_path = "/home/fengzhen/fengzhen_ssd/data_set_python_script/trafficlight_check_script/data/精选1000帧新数据集_胡佳纯输出/onnx_detection_result"
+input_infer_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/dec20220625/bin_output"
+# input_infer_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/dec20220625/trt_output"
+# input_infer_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/dec20220625/onnx_output_hjc"
 
 print("\nSecond step")
 print("----------------------------------------------")

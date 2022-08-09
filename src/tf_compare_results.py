@@ -17,7 +17,7 @@ debug_os = "qnx"
 iou_debug_thres = 0.5
 
 # 过滤条件-bbox像素小于该值过滤
-traffic_light_detect_filter_bbox = 4
+traffic_light_detect_filter_bbox = 10
 
 # 是否使用自定义iou对比
 # calculate_method = ""

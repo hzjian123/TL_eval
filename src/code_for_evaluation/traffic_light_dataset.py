@@ -125,7 +125,7 @@ class TrafficLightDetDataset(CocoDataset):
                 haomo_annotation_parser = self.parse_negative_sample
         elif self.dataset_mode in ["QA", "val"]:
             bbox_filters.extend([
-                bbox_filter_size_4,  # 过滤任意变长小于4的框
+                bbox_filter_size_10,  # 过滤任意变长小于4的框
                 # bbox_filter_toward_orientation,  # 过滤没有朝向字段的框与非正面侧面的框
                 bbox_filter_truncation,
             ])

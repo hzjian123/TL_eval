@@ -76,7 +76,7 @@ print("----------------------------------------------")
 CLASSES = ('traffic_light')
 
 gt_path = work_dir + "/QA/hd_QA.json"
-det_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/2022_09_26增加功能自测/bin_output" + "/"
+det_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/2022_10_19benchmark测试，cla_xmt_2_v0810_v1_8_2022_10_17_e6f418/det_output" + "/"
 # det_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/2022_09_09benckmark测试，det_xmt_2_v1_update_2022_08_25_v1_8__346e3/onnx_output_hjc" + "/"
 
 with open(gt_path) as fr:

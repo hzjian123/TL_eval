@@ -23,9 +23,6 @@ import copy
 
 def predclas(sess, img):
     input_name = sess.get_inputs()[0].name
-    pred_shape = sess.get_outputs()[0].name
-    pred_color = sess.get_outputs()[1].name
-    pred_toward = sess.get_outputs()[2].name
 
     img_roi = copy.deepcopy(img)
     longer_side = max(img_roi.shape[0], img_roi.shape[1])
@@ -125,8 +122,8 @@ def plotimg(img, results):
     return img
 
 
-cls_onnx_file = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/src/class/cla_xmt_2_v0810.onnx"
-data_path = "/home/fengzhen/work/data_set/6231a4f5625d0d750425e9b0"
+cls_onnx_file = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/src/class/cla_xmt_2_Q3.onnx"
+data_path = "/home/fengzhen/work/data_set/Featured_HD_2M_1000_data_set"
 save_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/COCO_tmp/QA/save_eval"
 
 
@@ -160,7 +157,7 @@ if __name__ == "__main__":
         input_path = os.path.join(data_path, "images", image_list[index1])
         # print(cfg.model)
         im = cv2.imread(os.path.join(input_path), 1)
-        label = json.load(open(os.path.join(data_path, "labels", image_list[index1][:-4] + ".json"), "rb"))
+        label = json.load(open(os.path.join(data_path, "labels", image_list[index1][:-5] + "1.json"), "rb"))
         # print("labels ", label)
         bboxes = label["objects"]
         for bbox_dict in bboxes:

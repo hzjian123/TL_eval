@@ -1,2 +1,0 @@
-cd src/class
-python onnx_inference_batch_det_cls_3head_eval.py

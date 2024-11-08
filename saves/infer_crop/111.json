@@ -1,0 +1,171 @@
+{
+    "card_id": [
+        "64c0cc152e4b3d07d61c1c96",
+        "62bbb70d96516eb7649f0e75",
+        "62b5a70e037a13e011140ef8",
+        "62b5a761037a13e0111449bc",
+        "62b5a737037a13e011144696"
+    ],
+    "postscript": "Delete targets with a width less than 4 pixels.",
+    "number_color_dict": {
+        "red": 2533,
+        "yellow": 177,
+        "green": 1329,
+        "others": 83,
+        "unknown": 859,
+        "black": 639
+    },
+    "number_shape_dict": {
+        "circle": 1596,
+        "left arrow": 69,
+        "bicycle": 374,
+        "up arrow": 0,
+        "right arrow": 0,
+        "others": 3581,
+        "return arrow": 0,
+        "down arrow": 0
+    },
+    "number_toward_dict": {
+        "front": 4244,
+        "side": 4071,
+        "backside": 839,
+        "unknown": 0
+    },
+    "number_character_dict": {
+        "CHARACTER_pass": 5748,
+        "CHARACTER_president": 2401,
+        "CHARACTER_number": 123,
+        "CHARACTER_word": 0,
+        "CHARACTER_others": 43,
+        "CHARACTER_unknow": 0
+    },
+    "number_simple_dict": {
+        "simple": 8168,
+        "complex": 147
+    },
+    "objects": [
+        {
+            "splits": [],
+            "pose_orientation": 1,
+            "bbox": [
+                20.1,
+                15.0,
+                4.8,
+                15.0
+            ],
+            "sub_lights": [],
+            "id": "0000000001",
+            "ext_occlusion": 1,
+            "toward_orientation": 2,
+            "type": 0,
+            "truncation": 0,
+            "class_name": "traffic_light",
+            "characteristic": 0,
+            "num_sub_lights": 0,
+            "character_head": false,
+            "toward_head": true,
+            "lightboxcolor_head": false,
+            "lightboxshape_head": false,
+            "simplelight_head": false,
+            "boxcolor": 5,
+            "boxshape": 7,
+            "simplelight": 0,
+            "img_info": {
+                "filename": "11.jpg"
+            },
+            "data_card_id": "62b5a70e037a13e011140ef8"
+        },
+        {
+            "splits": [],
+            "pose_orientation": 1,
+            "bbox": [
+                20.1,
+                15.0,
+                4.8,
+                15.0
+            ],
+            "sub_lights": [],
+            "id": "0000000001",
+            "ext_occlusion": 1,
+            "toward_orientation": 2,
+            "type": 0,
+            "truncation": 0,
+            "class_name": "traffic_light",
+            "characteristic": 0,
+            "num_sub_lights": 0,
+            "character_head": false,
+            "toward_head": true,
+            "lightboxcolor_head": false,
+            "lightboxshape_head": false,
+            "simplelight_head": false,
+            "boxcolor": 5,
+            "boxshape": 7,
+            "simplelight": 0,
+            "img_info": {
+                "filename": "22.jpg"
+            },
+            "data_card_id": "62b5a70e037a13e011140ef8"
+        },
+        {
+            "splits": [],
+            "pose_orientation": 1,
+            "bbox": [
+                20.1,
+                15.0,
+                4.8,
+                15.0
+            ],
+            "sub_lights": [],
+            "id": "0000000001",
+            "ext_occlusion": 1,
+            "toward_orientation": 2,
+            "type": 0,
+            "truncation": 0,
+            "class_name": "traffic_light",
+            "characteristic": 0,
+            "num_sub_lights": 0,
+            "character_head": false,
+            "toward_head": true,
+            "lightboxcolor_head": false,
+            "lightboxshape_head": false,
+            "simplelight_head": false,
+            "boxcolor": 5,
+            "boxshape": 7,
+            "simplelight": 0,
+            "img_info": {
+                "filename": "33.jpg"
+            },
+            "data_card_id": "62b5a70e037a13e011140ef8"
+        },{
+            "splits": [],
+            "pose_orientation": 1,
+            "bbox": [
+                20.1,
+                15.0,
+                4.8,
+                15.0
+            ],
+            "sub_lights": [],
+            "id": "0000000001",
+            "ext_occlusion": 1,
+            "toward_orientation": 2,
+            "type": 0,
+            "truncation": 0,
+            "class_name": "traffic_light",
+            "characteristic": 0,
+            "num_sub_lights": 0,
+            "character_head": false,
+            "toward_head": true,
+            "lightboxcolor_head": false,
+            "lightboxshape_head": false,
+            "simplelight_head": false,
+            "boxcolor": 5,
+            "boxshape": 7,
+            "simplelight": 0,
+            "img_info": {
+                "filename": "44.jpg"
+            },
+            "data_card_id": "62b5a70e037a13e011140ef8"
+        }
+    ]
+}

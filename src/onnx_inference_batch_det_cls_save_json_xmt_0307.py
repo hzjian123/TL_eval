@@ -107,8 +107,8 @@ def generate_location_embedding(input_shape):
 
 def pre_compute(input_shape, head_strides, head_regression_ranges):
     # 该参数可以提前计算
-    head_feature_map_sizes = generate_head_feature_map_size(input_shape,pad=0)
-    print('I'*50,head_feature_map_sizes,input_shape)
+    head_feature_map_sizes = generate_head_feature_map_size(input_shape,pad=1)
+    print('I'*50,head_feature_map_sizes,input_shape,"Pad is:",1)
     number_of_point = generate_number_of_point(head_feature_map_sizes)
     point_coordinates = generate_point_coordinates(head_strides, head_feature_map_sizes)
     expanded_regression_ranges_max = generate_expanded_regression_ranges(head_regression_ranges, head_feature_map_sizes)
@@ -297,10 +297,10 @@ TOWARD_CLASSES = [
 ]
 
 #onnx_file = "/mnt/ve_share/lijixiang/hzj/traffic/work-dir/trafficlight/detect_es11_daytime/det_xmt_2_v1_update_2022_08_25.onnx"
-#onnx_file = "/mnt/ve_share/lijixiang/hzj/traffic/mm/work-dir/stage1_try.onnx"
-onnx_file = "/mnt/ve_share/lijixiang/hzj/traffic/stage1/saves/archive/day_det_0606.onnx"
-cls_onnx_file = "/mnt/ve_share/lijixiang/hzj/traffic/work-dir/trafficlight/class_es11_daytime/cla_xmt_2_20230912.onnx"
-input_folder = '/mnt/ve_share/lijixiang/hzj/traffic/stage1/saves/dataset_test/small_test'
+onnx_file = "/mnt/ve_share/lijixiang/HE Zijian/traffic/mm/work-dir/stage1_try.onnx"
+#onnx_file = "/mnt/ve_share/lijixiang/hzj/traffic/stage1/saves/archive/day_det_0606.onnx"
+cls_onnx_file = "/mnt/ve_share/lijixiang/HE Zijian/traffic/work-dir/trafficlight/class_es11_daytime/cla_xmt_2_20230912.onnx"
+input_folder = '/mnt/ve_share/lijixiang/HE Zijian/traffic/download_oss_data/dataset_test/small_test'
 save_path = Path("saves")
 save_json_path = Path("saves/json_dt")
 save_crop_path = Path("saves/crop")
@@ -413,8 +413,20 @@ if __name__ == "__main__":
                                    int(bboxes_onnx_list[index4][3] * height_scale)),
                                   (0, 0, 255), 1)
                 det_list.append(det_dict)
-            cv2.imwrite(os.path.join(save_path,'imgs_dt',image_list[index1]), im)
-
+                        # cv2.imwrite(os.path.join(save_path,'imgs_dt',image_list[index1]), im)
+            try:
+                save_dir = os.path.join(save_path,'imgs_dt')
+                os.makedirs(save_dir, exist_ok=True)
+                success = cv2.imwrite(save_dir, im)
+                file_path = os.path.join(save_dir,image_list[index1])
+                print('Img valid',im.shape)
+                if success:
+                    print(f"Successfully saved {file_path}")
+                else:
+                    print(f"Failed to save {file_path}. Unknown error.")
+            except Exception as e:
+                print(f"Failed to save {save_dir}. Error: {str(e)}")
+            #print(os.path.join(save_path,'imgs_dt',image_list[index1]), im)
             if save_json:
                 with open(os.path.join(save_json_path, image_list[index1][:-4] + '.json'), "w") as f:
                     json.dump(det_list, f, indent=4)

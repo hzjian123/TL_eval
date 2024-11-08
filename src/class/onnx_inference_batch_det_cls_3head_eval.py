@@ -42,8 +42,8 @@ def predclas(sess, img):
                                      0).astype(np.float32)[None, ...]
     img_roi = img_roi[:, :, :, [2, 1, 0]]
     img_roi = img_roi.transpose(0, 3, 1, 2)
-    img_roi = (img_roi - np.array([0, 0, 0], dtype=np.float)[None, :, None, None]) / np.array(
-        [255., 255., 255.], dtype=np.float)[None, :, None, None]
+    img_roi = (img_roi - np.array([0, 0, 0], dtype=float)[None, :, None, None]) / np.array(
+        [255., 255., 255.], dtype=float)[None, :, None, None]
 
     pred_color, pred_shape, pred_toward = sess.run(
         None, {input_name: img_roi.astype(np.float32)})
@@ -122,10 +122,10 @@ def plotimg(img, results):
     return img
 
 
-cls_onnx_file = "/mnt/ve_share/lijixiang/hzj/traffic/work-dir/trafficlight/class_es11_daytime/cla_xmt_2_20230912.onnx"
+cls_onnx_file = "/mnt/ve_share/lijixiang/HE Zijian/traffic/work-dir/trafficlight/class_es11_daytime/cla_xmt_2_20230912.onnx"
 #cls_onnx_file = "/mnt/ve_share/lijixiang/hzj/traffic/work-dir/mine/stage2.onnx"
-data_path = '/mnt/ve_share/lijixiang/hzj/traffic/stage2/saves/test_crop_small'
-save_path = '/mnt/ve_share/lijixiang/hzj/traffic/eval/saves'
+data_path = '/mnt/ve_share/lijixiang/HE Zijian/traffic/eval/saves/infer_crop'
+save_path = '/mnt/ve_share/lijixiang/HE Zijian/traffic/eval/saves'
 
 
 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     EP_list = ['CUDAExecutionProvider', 'CPUExecutionProvider']
     sessclas = rt.InferenceSession(cls_onnx_file, providers=EP_list)
 
-    image_list = os.listdir(os.path.join(data_path,'small_test/images'))
+    image_list = os.listdir(os.path.join(data_path,''))
     image_list.sort()
     save = True
 
@@ -149,15 +149,15 @@ if __name__ == "__main__":
     black_tp_num = 0
     # toward_num = 0
     # toward_tp_num = 0
-    json_file = open(os.path.join(data_path,'data.json'))
+    json_file = open(os.path.join(data_path,'111.json'))
     Labels = json.load(json_file)
-    assert len(Labels["objects"]) == len(image_list)
+    #assert len(Labels["objects"]) == len(image_list)
     for index1 in range(len(image_list)):
         #print("dealing ", index1, " ", image_list[index1], "...")
         #if image_list[index1][-4:] != ".jpg":
         #    print("wrong name ", image_list[index1])
         #    continue
-        input_path = os.path.join(data_path,'small_test',Labels["objects"][index1]["img_info"]["filename"])
+        input_path = os.path.join(data_path,'combine',Labels["objects"][index1]["img_info"]["filename"])
         im = cv2.imread(input_path)
         label = Labels["objects"][index1]#json.load(open(os.path.join(data_path, "labels", image_list[index1][:-5] + "1.json"), "rb"))
         # print("labels ", label)

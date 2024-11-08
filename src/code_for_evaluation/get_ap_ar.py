@@ -36,7 +36,7 @@ test_pipeline = [
 
 # 根据实际情况进行配置
 V21_2022_Q1_hd_QA_fz = [
-	'/mnt/ve_share/lijixiang/hzj/traffic/download_oss_data/dataset_test',
+	'/mnt/ve_share/lijixiang/HE Zijian/traffic/download_oss_data/dataset_test',
 	['small_test']
 ]
 
@@ -45,7 +45,7 @@ mode = "QA"
 # 管道
 pipeline = test_pipeline
 # 工作路径
-work_dir = '/mnt/ve_share/lijixiang/hzj/traffic/eval/src/saves/hd'
+work_dir = '/mnt/ve_share/lijixiang/HE Zijian/traffic/eval/src/saves/hd'
 # 测试的图像和标签，以卡片形式存在
 card_group = [V21_2022_Q1_hd_QA_fz]
 # 项目名称
@@ -76,7 +76,7 @@ print("----------------------------------------------")
 CLASSES = ('traffic_light')
 
 gt_path = work_dir + "/QA/hd_QA.json"
-det_path = "/mnt/ve_share/lijixiang/hzj/traffic/eval/src/saves/json_dt/"
+det_path = "/mnt/ve_share/lijixiang/HE Zijian/traffic/eval/src/saves/json_dt/"
 #det_path = "/home/fengzhen/work/data_set_python_script/trafficlight_check_script/data/2022_09_09benckmark测试，det_xmt_2_v1_update_2022_08_25_v1_8__346e3/onnx_output_hjc" + "/"
 
 with open(gt_path) as fr:
